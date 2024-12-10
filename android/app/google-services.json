@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1001292765069",
+    "project_id": "nike-app-fd433",
+    "storage_bucket": "nike-app-fd433.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001292765069:android:57903e4ffdea229c0fcfc4",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkm9mRt-OYHfGPWXeuWG2ayI_pHW6Ihsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
