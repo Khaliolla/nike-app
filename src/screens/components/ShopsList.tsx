@@ -1,35 +1,22 @@
 import React from 'react'
 import { View, Image, Text, StyleSheet, TouchableOpacity, FlatList, SafeAreaView } from 'react-native'
-import { data } from '../../../data'
 import ListItem from './ListItem'
+import { Idata } from '../slices/dataSlice'
 
-interface Iitem {
-    id: number,
-    title: string,
-    price: number,
-    img: string
-}
 
-const ShopsList = ({item, index}: {item: Iitem, index: number}) => {
+const ShopsList = ({item, index}: {item: Idata, index: number}) => {
 
-  const keyExtractor = (item: Iitem) => item?.id.toString();
-  const renderItem = ({ item, index }: { item: Iitem, index: number }) => <ListItem item={item} index={index} />;
+  const keyExtractor = (item: Idata) => item?.id.toString();
+  const renderItem = ({ item, index }: { item: Idata, index: number }) => <ListItem item={item} index={index} />;
 
   return (
     <SafeAreaView style={styles.container}>
 
         <View style={styles.titleContainer} >
-            <Text style={styles.text} >New Arrivals</Text>
+            <Text style={styles.text} >{item.title}</Text>
         </View>
 
-    <FlatList 
-        data={data}
-        keyExtractor={keyExtractor}
-        renderItem={renderItem}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-    />
+    
 
      </SafeAreaView>
   )

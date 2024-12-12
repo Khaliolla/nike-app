@@ -10,6 +10,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useAppSelector, useAppDispatch } from '../../../hooks/reduxHooks';
 import { useEffect } from 'react';
 import { loadUserFromStorage } from '../slices/userSlice';
+import { ActivityIndicator, View } from 'react-native';
+import HomeList from '../components/HomeList';
+import { Loader } from '../components/Loader';
 
 
 export type MainParamList = {
@@ -17,30 +20,45 @@ export type MainParamList = {
   Login: undefined;
   Register: undefined;
   Home: undefined;
+  Tab: undefined
+  Loading: undefined;
 };
 
 export type AppStackParamList = NativeStackScreenProps<MainParamList, 'Home'>;
 const Stack = createNativeStackNavigator<MainParamList>();
 
 const AppNavigator = () => {
+
+  
+
   const dispatch = useAppDispatch()
-  const user = useAppSelector((state) => state.user)
+
 
   useEffect(() => {
+
     dispatch(loadUserFromStorage());
   }, []);
+  
+  const user = useAppSelector((state) => state.user)
 
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{headerShown: false}}>
-          {user ? (  <Stack.Screen name="Home" component={TabNavigator} /> ) : (
-            <>
-          <Stack.Screen name="Main" component={Main} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          </>
-          ) }
+            {
+              user.isLoading ?
+              <Stack.Screen name="Loading" component={Loader}/>
+              :
+                 user.email ? (  <Stack.Screen name="Tab" component={TabNavigator} /> ) 
+                 :
+                  (
+                  <>
+                  <Stack.Screen name="Main" component={Main} />
+                  <Stack.Screen name="Login" component={Login} />
+                  <Stack.Screen name="Register" component={Register} />
+                  </>
+                  ) 
+            }
       </Stack.Navigator>
     </NavigationContainer>
   );

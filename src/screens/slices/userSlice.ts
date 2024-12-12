@@ -6,13 +6,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 interface User {
     email: string,
     token: string,
-    id: string
+    id: string,
+    isLoading: boolean;
 }
 
 const initialState: User = {
     email: '',
     token: '',
     id: '',
+    isLoading: false
 }
 
 export const loadUserFromStorage = createAsyncThunk(
@@ -54,11 +56,22 @@ const userSlice = createSlice({
     },
 
     extraReducers: (builder) => {
+      builder.addCase(loadUserFromStorage.pending, (state, action) => {
+        state.isLoading = true
+      });
         builder.addCase(loadUserFromStorage.fulfilled, (state, action) => {
           state.email = action.payload.email;
           state.token = action.payload.token;
           state.id = action.payload.id;
+          state.isLoading = false
         });
+        builder.addCase(loadUserFromStorage.rejected, (state, action) => {
+          state.email = "";
+          state.token = "";
+          state.id = "";
+          state.isLoading = false
+        });
+
     }
 })
 

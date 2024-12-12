@@ -9,12 +9,12 @@ interface Iitem {
     img: string
 }
 
-const ListItem = ({item, index}: {item: Idata, index: number}) => {
+const HomeList = ({item, index}: {item: Iitem, index: number}) => {
 
 
   return (
     <TouchableOpacity style={index === 0 ? styles.wrapper : styles.wrapper2} >
-        <Image style={{width:300, height: 300, marginBottom: 20}} source={{uri:item.image}} />
+        <Image style={{width:300, height: 300, marginBottom: 20}} source={{uri:item.img}} />
         <View style={{marginBottom: 16}} >
             <Text style={styles.title} >{item.title}</Text>
         </View>
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ListItem
+export default HomeList

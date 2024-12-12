@@ -20,7 +20,7 @@ const TabNavigator = () => {
       tabBarActiveTintColor: '#000',
       tabBarInactiveTintColor: "#767676",
       tabBarStyle: {
-        height: 55,
+        height: 60,
         backgroundColor: '#fff'
       }
     }} >

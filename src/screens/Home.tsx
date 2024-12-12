@@ -1,9 +1,9 @@
 import React from 'react'
-import { FlatList, Image, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { FlatList, Image, SafeAreaView, ScrollView, StatusBar, Text, View } from 'react-native'
 import { StyleSheet } from 'react-native'
 import { format } from 'date-fns';
 import {data} from '../../data'
-import ListItem from './components/ListItem';
+import HomeList from './components/HomeList';
 
 export interface Iitem {
   id: number,
@@ -18,10 +18,11 @@ export const Home = () => {
 
   const formattedDate = format(today, 'EEEE, d MMMM');
   const keyExtractor = (item: Iitem) => item?.id.toString();
-  const renderItem = ({ item, index }: { item: Iitem, index: number }) => <ListItem item={item} index={index} />;
+  const renderItem = ({ item, index }: { item: Iitem, index: number }) => <HomeList item={item} index={index} />;
   
   return (
     <SafeAreaView>
+      <StatusBar barStyle={'dark-content'} backgroundColor={"#fff"}/>
       <ScrollView>
      <View style={styles.container} >
       <View style={styles.h1} >
