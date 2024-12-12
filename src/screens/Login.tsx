@@ -7,7 +7,7 @@ import Google from '../../assets/icons/Google'
 import { useForm, Controller } from "react-hook-form";
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useAppDispatch } from '../../hooks/reduxHooks'
-import { setUser } from './slices/userSlice'
+import { setUser } from '../slices/userSlice'
 
 type FormData = {
   Email: string;

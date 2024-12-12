@@ -1,13 +1,14 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, Text, FlatList, View, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
 import { Iitem } from './Home'
-import ShopsList from './components/ShopsList'
+import ShopsList from '../components/ShopsList'
 import SearchIcon from '../../assets/icons/SearchIcon'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
-import { fetchData } from './slices/dataSlice'
-import { Idata } from './slices/dataSlice'
-import ListItem from './components/ListItem'
+import { fetchData } from '../slices/dataSlice'
+import { Idata } from '../slices/dataSlice'
+import ListItem from '../components/ListItem'
+import Sceleton from '../components/Sceleton'
 
 
 export const Shop = () => {
@@ -19,6 +20,7 @@ export const Shop = () => {
   }, []);
 
   const items: Idata[] = useAppSelector((state) => state.data.items)
+  const status: string = useAppSelector((state) => state.data.status)
 
   const all = items
   const mens = items.filter((item) => item.cat === 0)
@@ -44,40 +46,41 @@ export const Shop = () => {
           <Text style={styles.text} >ALL</Text>
         </View>
         <View>
-          <FlatList 
+          { status === 'loading' ? <Sceleton /> : (<FlatList 
               data={all}
               keyExtractor={keyExtractor}
               renderItem={renderItem}
               horizontal
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
-          />
+          />) }
+          
         </View>
         <View style={styles.titleContainer} >
           <Text style={styles.text} >Women`s</Text>
         </View>
         <View>
-          <FlatList 
+        { status === 'loading' ? <Sceleton /> : (<FlatList 
               data={womens}
               keyExtractor={keyExtractor}
               renderItem={renderItem}
               horizontal
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
-          />
+          />) }
         </View>
         <View style={styles.titleContainer} >
           <Text style={styles.text} >Men`s</Text>
         </View>
         <View>
-          <FlatList 
+        { status === 'loading' ? <Sceleton /> : (<FlatList 
               data={mens}
               keyExtractor={keyExtractor}
               renderItem={renderItem}
               horizontal
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
-          />
+          />) }
         </View>
      </ScrollView>
     </SafeAreaView>

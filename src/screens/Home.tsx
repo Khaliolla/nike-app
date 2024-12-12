@@ -3,7 +3,7 @@ import { FlatList, Image, SafeAreaView, ScrollView, StatusBar, Text, View } from
 import { StyleSheet } from 'react-native'
 import { format } from 'date-fns';
 import {data} from '../../data'
-import HomeList from './components/HomeList';
+import HomeList from '../components/HomeList';
 
 export interface Iitem {
   id: number,

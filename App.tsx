@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect } from 'react';;
-import AppNavigator from './src/screens/navigator/AppNavigator';
+import AppNavigator from './src/navigator/AppNavigator';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import SplashScreen from 'react-native-splash-screen';

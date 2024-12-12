@@ -56,7 +56,7 @@ const userSlice = createSlice({
     },
 
     extraReducers: (builder) => {
-      builder.addCase(loadUserFromStorage.pending, (state, action) => {
+      builder.addCase(loadUserFromStorage.pending, (state) => {
         state.isLoading = true
       });
         builder.addCase(loadUserFromStorage.fulfilled, (state, action) => {
@@ -65,7 +65,7 @@ const userSlice = createSlice({
           state.id = action.payload.id;
           state.isLoading = false
         });
-        builder.addCase(loadUserFromStorage.rejected, (state, action) => {
+        builder.addCase(loadUserFromStorage.rejected, (state) => {
           state.email = "";
           state.token = "";
           state.id = "";

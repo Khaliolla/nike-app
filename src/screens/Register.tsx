@@ -6,7 +6,7 @@ import LineIcon from '../../assets/icons/Line'
 import { useForm, Controller } from 'react-hook-form'
 import auth from '@react-native-firebase/auth';
 import { useAppDispatch } from '../../hooks/reduxHooks'
-import { setUser } from './slices/userSlice'
+import { setUser } from '../slices/userSlice'
 
 type FormData = {
   Email: string;

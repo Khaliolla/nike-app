@@ -1,18 +1,16 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack';
-import { Main } from '../Main';
-import { Login } from '../Login';
-import { Register } from '../Register';
-import { Home } from '../Home';
+import { Main } from '../screens/Main';
+import { Login } from '../screens/Login';
+import { Register } from '../screens/Register';
 import TabNavigator from './TabNavigator';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useAppSelector, useAppDispatch } from '../../../hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { useEffect } from 'react';
 import { loadUserFromStorage } from '../slices/userSlice';
-import { ActivityIndicator, View } from 'react-native';
-import HomeList from '../components/HomeList';
 import { Loader } from '../components/Loader';
+import ProductPage from '../screens/ProductPage';
+import { Idata } from '../slices/dataSlice';
 
 
 export type MainParamList = {
@@ -20,11 +18,12 @@ export type MainParamList = {
   Login: undefined;
   Register: undefined;
   Home: undefined;
-  Tab: undefined
+  Tab: undefined;
+  Product: {item: Idata};
   Loading: undefined;
 };
 
-export type AppStackParamList = NativeStackScreenProps<MainParamList, 'Home'>;
+export type AppStackParamList = NativeStackScreenProps<MainParamList, 'Product'>;
 const Stack = createNativeStackNavigator<MainParamList>();
 
 const AppNavigator = () => {
@@ -49,7 +48,12 @@ const AppNavigator = () => {
               user.isLoading ?
               <Stack.Screen name="Loading" component={Loader}/>
               :
-                 user.email ? (  <Stack.Screen name="Tab" component={TabNavigator} /> ) 
+                 user.email ? ( 
+                  <>
+                   <Stack.Screen name="Tab" component={TabNavigator} /> 
+                   <Stack.Screen name="Product" component={ProductPage} />
+                   </>
+                  ) 
                  :
                   (
                   <>

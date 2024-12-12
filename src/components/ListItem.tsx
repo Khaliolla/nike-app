@@ -1,19 +1,27 @@
 import React from 'react'
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Idata } from '../slices/dataSlice'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { MainParamList } from '../navigator/AppNavigator';
+import { useNavigation } from '@react-navigation/native';
 
-interface Iitem {
-    id: number,
-    title: string,
-    price: number,
-    img: string
-}
+type ListItemProps = {
+  item: Idata;
+  index: number;
+  // navigation: NativeStackNavigationProp<MainParamList, 'Product'>;
+};
 
-const ListItem = ({item, index}: {item: Idata, index: number}) => {
+type navigateProp = NativeStackNavigationProp<MainParamList, 'Product'>
+
+ 
+const ListItem: React.FC<ListItemProps> = ({item, index}) => {
+
+  const navigation = useNavigation<navigateProp>()
+
 
 
   return (
-    <TouchableOpacity style={index === 0 ? styles.wrapper : styles.wrapper2} >
+    <TouchableOpacity style={index === 0 ? styles.wrapper : styles.wrapper2} onPress={() => navigation.navigate('Product', {item}) } >
         <Image style={{width:300, height: 300, marginBottom: 20}} source={{uri:item.image}} />
         <View style={{marginBottom: 16}} >
             <Text style={styles.title} >{item.title}</Text>
