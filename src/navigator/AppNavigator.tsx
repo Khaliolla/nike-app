@@ -17,7 +17,6 @@ export type MainParamList = {
   Main: undefined;
   Login: undefined;
   Register: undefined;
-  Home: undefined;
   Tab: undefined;
   Product: {item: Idata};
   Loading: undefined;

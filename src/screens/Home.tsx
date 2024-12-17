@@ -23,6 +23,7 @@ export const Home = () => {
   return (
     <SafeAreaView>
       <StatusBar barStyle={'dark-content'} backgroundColor={"#fff"}/>
+
       <ScrollView>
      <View style={styles.container} >
       <View style={styles.h1} >
