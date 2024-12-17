@@ -20,7 +20,7 @@ const FavoritIcon = (props: any) => (
     </G>
     <Defs>
       <ClipPath id="clip0_303_2909">
-        <Rect width={24} height={24} fill="white" />
+        <Rect width={24} height={24} fill={props.color} />
       </ClipPath>
     </Defs>
   </Svg>

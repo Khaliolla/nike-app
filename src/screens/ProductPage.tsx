@@ -1,10 +1,12 @@
-import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, Dimensions, FlatList } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, Dimensions, FlatList, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { RouteProp } from '@react-navigation/native'
+import { RouteProp, useNavigation } from '@react-navigation/native'
 import { MainParamList } from '../navigator/AppNavigator';
 import { Carousel } from 'react-native-flatlist-carousel';
 import { Animated } from 'react-native';
 import { useRef, useEffect, useState } from 'react';
+import FavoritIcon from '../../assets/tabIcons/FavoritIcon';
+import GoBackIcon from '../../assets/icons/GoBackIcon';
 
 type ProductScreenRouteProp = RouteProp<MainParamList, 'Product'>;
 
@@ -20,36 +22,14 @@ const renderItem = ({item}: {item: Iitem}) => {
 
   return (
       <View style={{flex:1}} >
-          <Image source={{uri:item.image}} style={{width: "100%", height: 250}} />
+          <Image source={{uri:item.image}} style={{width: "100%", height: 300}} />
       </View>
   );
 }
 
 const ProductPage: React.FC<Props> = ({route}) => {
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselRef = useRef<FlatList>(null);
-  const scrollX = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % sliderData.length);
-    }, 3000); // Автоматическое переключение каждые 3 секунды
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleScroll = Animated.event(
-    [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-    { useNativeDriver: false }
-  );
-
-  const onSnapToItem = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-
-  const sliderWidth = Dimensions.get('window').width;
+  const navigation = useNavigation()
 
   const sliderData = [
     {
@@ -67,57 +47,95 @@ const ProductPage: React.FC<Props> = ({route}) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff"}} >
       <StatusBar barStyle={'dark-content'} backgroundColor={"#fff"}/>
-      <Text>Product</Text>
-      <View style={styles.container}>
+      <TouchableOpacity style={{marginLeft: 16,marginTop: 30 }} onPress={() => navigation.goBack()} >
+        <GoBackIcon />
+      </TouchableOpacity>
+      <View style={styles.container} >
       <Carousel
-      height={200}
+      height={300}
       data={sliderData}
       renderCarouselItem={renderItem}
       keyExtractor={(item) => item.image}
-      autoScrollInterval={3000}
-      showDots
+      autoScrollInterval={5000}
       dotOptions={{ selectedFillColor: '#2196f3' }}
-    />
-      
+     />
+      </View>
+    <View style={styles.wrapper} >
+     <Text style={styles.title} >{route.params.item.title}</Text>
+     <Text style={styles.price} > {route.params.item.price} tg </Text>
+     <Text style={styles.about} >The Nike Everyday Plus Cushioned Socks bring comfort to your workout with extra cushioning under the heel and forefoot and a snug, supportive arch band. Sweat-wicking power and breathability up top help keep your feet dry and cool to help push you through that extra set.</Text>
+     <View style={styles.add} >
+      <View style={{justifyContent: 'center', alignItems: 'center'}} >
+        <TouchableOpacity style={styles.favourite} > <Text style={{ fontFamily: "Roboto-Regular", fontWeight: 'bold', fontSize: 20, color: '#000' }} > Favourite <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 23}} > <FavoritIcon color={'#000'} /> </View> </Text> </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.button} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Add to bag</Text> </TouchableOpacity>
+     </View>
     </View>
-  
 
+    
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 30,
   },
-  slide: {
-    justifyContent: 'center',
-    alignItems: 'center',
+
+  wrapper: {
+    marginLeft: 24,
+    marginTop: 30,
+    width: 400
   },
-  image: {
-    width: '100%',
-    height: 200,
-    borderRadius: 10,
-  },
-  text: {
-    marginTop: 10,
-    fontSize: 18,
+
+  title: {
+    marginLeft: 4,
+    fontSize: 24,
+    fontFamily: 'Roboto-Medium',
     fontWeight: 'bold',
   },
-  dotsContainer: {
-    position: 'absolute',
-    bottom: 10,
-    flexDirection: 'row',
+
+  price: {
+    marginTop: 16,
+    fontSize: 19,
+    fontFamily: 'Roboto-Medium',
+    fontWeight: 'bold',
   },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: 'gray',
-    margin: 5,
+
+  about: {
+    marginLeft: 4,
+    marginTop: 16,
+    fontFamily: 'Roboto-Light',
+    fontSize: 20
   },
+
+  button: {
+    width: 327,
+    height: 50,
+    backgroundColor: "#000",
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 32,
+    borderRadius: 25,
+    marginBottom: 75,
+  },
+
+  add: {
+    marginTop: 85,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  favourite: {
+    width: 327,
+    height: 50,
+    backgroundColor: "#fff",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    borderWidth: 4,
+    borderColor: '#f6f6f6'
+  }
 });
 
 

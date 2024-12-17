@@ -7,7 +7,7 @@ interface User {
     email: string,
     token: string,
     id: string,
-    isLoading: boolean;
+    isLoading?: boolean;
 }
 
 const initialState: User = {
