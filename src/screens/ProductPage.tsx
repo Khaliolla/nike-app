@@ -7,6 +7,8 @@ import { Animated } from 'react-native';
 import { useRef, useEffect, useState } from 'react';
 import FavoritIcon from '../../assets/tabIcons/FavoritIcon';
 import GoBackIcon from '../../assets/icons/GoBackIcon';
+import { useAppDispatch } from '../../hooks/reduxHooks';
+import { setItems } from '../slices/bagSlice';
 
 type ProductScreenRouteProp = RouteProp<MainParamList, 'Product'>;
 
@@ -29,6 +31,7 @@ const renderItem = ({item}: {item: Iitem}) => {
 
 const ProductPage: React.FC<Props> = ({route}) => {
 
+  const dispatch = useAppDispatch()
   const navigation = useNavigation()
 
   const sliderData = [
@@ -68,7 +71,7 @@ const ProductPage: React.FC<Props> = ({route}) => {
       <View style={{justifyContent: 'center', alignItems: 'center'}} >
         <TouchableOpacity style={styles.favourite} > <Text style={{ fontFamily: "Roboto-Regular", fontWeight: 'bold', fontSize: 20, color: '#000' }} > Favourite <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 23}} > <FavoritIcon color={'#000'} /> </View> </Text> </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.button} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Add to bag</Text> </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => dispatch(setItems(route.params.item))} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Add to bag</Text> </TouchableOpacity>
      </View>
     </View>
 

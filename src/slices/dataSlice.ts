@@ -8,7 +8,8 @@ export type Idata = {
   image: string,
   image2: string,
   image3: string,
-  cat: number
+  cat: number,
+  quantity: number
 }
 
 interface Iintial {
