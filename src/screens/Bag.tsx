@@ -3,6 +3,7 @@ import { SafeAreaView, StatusBar, StyleSheet, ScrollView, View, Text, TouchableO
 import BagCart from '../components/BagCart'
 import { useAppSelector } from '../../hooks/reduxHooks'
 import { useState } from 'react';
+import EmptyBag from '../components/EmptyBag';
 
 
 export const Bag = () => {
@@ -12,13 +13,13 @@ export const Bag = () => {
 
   return (
     <SafeAreaView style={styles.container} >
-       <StatusBar barStyle={'dark-content'} backgroundColor={"#f6f6f6"}/>
+       <StatusBar barStyle={'dark-content'} backgroundColor={"red"}/>
        <ScrollView>
         {bagItems.length ? 
         (bagItems.map((item) => {
           return <BagCart item={item} /> 
         })) :
-        (<Text>ERRRR</Text>) }
+        (<EmptyBag />) }
        </ScrollView>
 
        <View style={styles.cost} >
@@ -39,7 +40,7 @@ export const Bag = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6f6'
+    backgroundColor: '#fff'
   },
 
   cost: {
