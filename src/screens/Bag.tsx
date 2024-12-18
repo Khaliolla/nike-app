@@ -2,12 +2,13 @@ import React from 'react'
 import { SafeAreaView, StatusBar, StyleSheet, ScrollView, View, Text, TouchableOpacity} from 'react-native'
 import BagCart from '../components/BagCart'
 import { useAppSelector } from '../../hooks/reduxHooks'
-import { Dropdown } from 'react-native-element-dropdown';
+import { useState } from 'react';
 
 
 export const Bag = () => {
 
   const bagItems = useAppSelector((state) => state.bag.items )
+
 
   return (
     <SafeAreaView style={styles.container} >
@@ -72,7 +73,44 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: 19,
     marginLeft: 100
-  }
+  },
+  drop: {
+    backgroundColor: 'white',
+    padding: 16,
+  },
+  dropdown: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
 })
 
 
