@@ -85,13 +85,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Roboto-Medium',
-    fontSize: 19,
+    fontSize: 22,
     flex: 1, 
     marginRight: 10, 
   },
   price: {
     fontFamily: 'Roboto-Medium',
-    fontSize: 19,
+    fontSize: 22,
     marginRight: 16
   },
   image: {

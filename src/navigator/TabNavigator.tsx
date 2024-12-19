@@ -10,10 +10,12 @@ import ShopIcon from '../../assets/tabIcons/ShopIcon'
 import FavoritIcon from '../../assets/tabIcons/FavoritIcon'
 import BagIcon from '../../assets/tabIcons/BagIcon'
 import ProfileIcon from '../../assets/tabIcons/ProfileIcon'
+import { useAppSelector } from '../../hooks/reduxHooks'
 
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
+  const badge = useAppSelector((state) => state.bag.items.length)
   return (
     <Tab.Navigator screenOptions={{
       headerShown: false,
@@ -40,6 +42,8 @@ const TabNavigator = () => {
           )
         }} />
         <Tab.Screen name='Bag' component={Bag} options={{
+          tabBarBadge: badge > 0 ? badge : undefined,
+          tabBarBadgeStyle: { backgroundColor: "#000", width: 15 },
           tabBarIcon: ({focused}) => (
             <BagIcon color={focused ? '#000' : "#767676"} />
           )

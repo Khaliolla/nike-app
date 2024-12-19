@@ -13,7 +13,7 @@ export const Bag = () => {
 
   return (
     <SafeAreaView style={styles.container} >
-       <StatusBar barStyle={'dark-content'} backgroundColor={"red"}/>
+       <StatusBar barStyle={'dark-content'} backgroundColor={"#fff"}/>
        <ScrollView>
         {bagItems.length ? 
         (bagItems.map((item) => {
