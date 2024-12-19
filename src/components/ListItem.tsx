@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 type ListItemProps = {
   item: Idata;
   index: number;
-  // navigation: NativeStackNavigationProp<MainParamList, 'Product'>;
 };
 
 type navigateProp = NativeStackNavigationProp<MainParamList, 'Product'>

@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { SafeAreaView, StatusBar, StyleSheet, ScrollView, View, Text, TouchableOpacity} from 'react-native'
 import BagCart from '../components/BagCart'
 import { useAppSelector } from '../../hooks/reduxHooks'
 import { useState } from 'react';
 import EmptyBag from '../components/EmptyBag';
-
+import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet';
+import CustomBottomSheet from '../components/CustomBottomSheet';
 
 export const Bag = () => {
 
   const bagItems = useAppSelector((state) => state.bag.items )
-
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const handlePresentModal = () => bottomSheetRef.current?.present()
 
   return (
     <SafeAreaView style={styles.container} >
@@ -27,12 +29,15 @@ export const Bag = () => {
         <Text style={styles.price} >
           {bagItems.reduce((acc, item) => {return acc += (item.price * item.quantity)},0 ) } tg 
         </Text>
-        <TouchableOpacity style={styles.button}> 
+        <TouchableOpacity onPress={handlePresentModal} disabled={!bagItems.length} style={styles.button}> 
           <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >
             Checkout
           </Text> 
         </TouchableOpacity>
        </View>
+       <CustomBottomSheet 
+       ref={bottomSheetRef}
+       />
     </SafeAreaView>
   )
 }
