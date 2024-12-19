@@ -17,7 +17,7 @@ export const Bag = () => {
        <ScrollView>
         {bagItems.length ? 
         (bagItems.map((item) => {
-          return <BagCart item={item} /> 
+          return <BagCart key={item.id} item={item} /> 
         })) :
         (<EmptyBag />) }
        </ScrollView>
