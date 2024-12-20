@@ -18,6 +18,7 @@ type ProductScreenRouteProp = RouteProp<MainParamList, "Product">;
 
 type Props = {
   route: ProductScreenRouteProp;
+  navigation: any
 };
 
 type Iitem = {
@@ -30,9 +31,9 @@ const renderItem = ({ item }: { item: Iitem }) => (
   </View>
 );
 
-const ProductPage: React.FC<Props> = ({ route }) => {
+const ProductPage: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigation();
+  
 
   const sliderData = [
     { image: route.params.item.image || "/" },

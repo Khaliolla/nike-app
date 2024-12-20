@@ -55,6 +55,7 @@ const BagCart = ({ item }: { item: Idata }) => {
           onBlur={() => setIsFocus(false)}
           onChange={(item:any) => {
             setValue(item.value);
+            console.log(value)
             setIsFocus(false);
           }}
         />

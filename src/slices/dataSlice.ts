@@ -9,12 +9,13 @@ export type Idata = {
   image2: string,
   image3: string,
   cat: number,
-  quantity: number
+  quantity: number,
 }
 
 interface Iintial {
   items: Idata[],
-  status: string
+  status: string,
+  value: string
 }
 
 export const fetchData = createAsyncThunk(
@@ -28,7 +29,8 @@ export const fetchData = createAsyncThunk(
 
 const initialState: Iintial = {
     items: [],
-    status: "loading"
+    status: "loading",
+    value: 'nike'
 }
 
 const dataSlice = createSlice({
@@ -37,7 +39,10 @@ const dataSlice = createSlice({
     reducers: {
         setItems(state, action) {
           state.items = action.payload
-        }
+        },
+        searchFilter(state, action) {
+          state.value = action.payload
+      },
     },
     extraReducers:  (builder) => {
       builder
@@ -57,5 +62,5 @@ const dataSlice = createSlice({
     }
 })
 
-export const { } = dataSlice.actions
+export const { searchFilter } = dataSlice.actions
 export default dataSlice.reducer
