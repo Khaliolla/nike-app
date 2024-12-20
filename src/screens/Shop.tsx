@@ -113,7 +113,7 @@ export const Shop = () => {
               <TextInput style={styles.modalInput} value={inputValue} onChangeText={setInputValue} placeholder='Search Product' />
               <TouchableOpacity onPress={() => setModalWin(false)} ><Text style={{fontFamily: "Roboto-Medium",color: '#767676', fontSize: 19}} >Cancel</Text></TouchableOpacity>
             </View>
-            {filterItemsList.map((item) => <SearchContainer key={item.id} item={item} /> )}
+            {filterItemsList.map((item) => <SearchContainer setFilterItemsList={setFilterItemsList} setInputValue={setInputValue} key={item.id} item={item} /> )}
             </ScrollView>
           </SafeAreaView>
         </Modal>

@@ -9,12 +9,17 @@ import { useNavigation } from '@react-navigation/native';
 type navigateProp = NativeStackNavigationProp<MainParamList, 'Product'>
 
  
-const SearchContainer = ({item}: {item: Idata}) => {
+const SearchContainer = ({item, setInputValue, setFilterItemsList}: {item: Idata, setInputValue: any, setFilterItemsList: any}) => {
 
   const navigation = useNavigation<navigateProp>()
+  const handlePress = () => {
+    navigation.navigate('Product', {item})
+    setInputValue('')
+    setFilterItemsList([])
+  }
 
   return (
-    <TouchableOpacity style={styles.wrapper} onPress={() => navigation.navigate('Product', {item}) } >
+    <TouchableOpacity style={styles.wrapper} onPress={handlePress } >
         <View style={styles.container} >
             <Image style={styles.image} source={{uri: item.image}} />
             <View>

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import EmptyBag from '../components/EmptyBag';
 import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet';
 import CustomBottomSheet from '../components/CustomBottomSheet';
-
+ 
 export const Bag = () => {
 
   const bagItems = useAppSelector((state) => state.bag.items )

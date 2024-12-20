@@ -78,7 +78,7 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
     setTimeout(() => {
       dispatch(setItems(route.params.item));
       navigation.goBack()
-    }, 400);
+    }, 280);
   };
 
   const animatedStyle = useAnimatedStyle(() => ({
