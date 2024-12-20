@@ -7,6 +7,12 @@ import { useAppDispatch } from '../../hooks/reduxHooks';
 import { decrementItems, incrementItems } from '../slices/bagSlice';
 import { useState } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
+import { Carousel } from "react-native-flatlist-carousel";
+
+
+type Iitem = {
+  image: string;
+};
 
 const data = [
     { label: 'Size 37', value: '1' },
@@ -19,10 +25,23 @@ const data = [
     { label: 'Size 44', value: '8' },
   ];
 
+  const renderItem = ({ item }: { item: Iitem }) => (
+    <View style={{ flex: 1 }}>
+      <Image source={{ uri: item.image }} style={{ width: 200, height: 200, borderRadius: 15}} />
+    </View>
+  );
+
+
 const BagCart = ({ item }: { item: Idata }) => {
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+
+  const sliderData = [
+    { image: item.image },
+    { image: item.image2 },
+    { image: item.image3 },
+  ];
 
   const dispatch = useAppDispatch()
 
@@ -33,10 +52,20 @@ const BagCart = ({ item }: { item: Idata }) => {
         <Text style={styles.price}>{item.price} tg</Text>
       </View>
       <View style={styles.image}>
-        <Image
+        {/* <Image
           style={{ width: 200, height: 200, borderRadius: 15 }}
           source={{ uri: item.image }}
-        />
+        />  */}
+        <View style={{width:200, height: 200, backgroundColor: '#f6f6f6', borderRadius: 15}} >
+          <Carousel
+            height={200}
+            itemWidth={200}
+            windowSize={200}
+            data={sliderData}
+            renderCarouselItem={renderItem}
+            keyExtractor={(item) => item.image}
+          />
+        </View>
         <View>
         <View>
         <Dropdown

@@ -103,7 +103,6 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
           renderCarouselItem={renderItem}
           keyExtractor={(item) => item.image}
           autoScrollInterval={5000}
-          dotOptions={{ selectedFillColor: "#2196f3" }}
         />
       </View>
       <View style={styles.wrapper}>
