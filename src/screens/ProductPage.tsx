@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, TouchableOpacity } from "react-native";
+import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, TouchableOpacity, Dimensions } from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import { MainParamList } from "../navigator/AppNavigator";
 import { Carousel } from "react-native-flatlist-carousel";
@@ -9,10 +9,13 @@ import Animated, {
   withTiming,
   Easing,
 } from "react-native-reanimated";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { setItems } from "../slices/bagSlice";
 import GoBackIcon from "../../assets/icons/GoBackIcon";
 import FavoritIcon from "../../assets/tabIcons/FavoritIcon";
+import firestore from '@react-native-firebase/firestore';
+import { firebase } from "@react-native-firebase/firestore";
+import { ScrollView } from "react-native-gesture-handler";
 
 type ProductScreenRouteProp = RouteProp<MainParamList, "Product">;
 
@@ -33,7 +36,7 @@ const renderItem = ({ item }: { item: Iitem }) => (
 
 const ProductPage: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
-  
+  const userId = useAppSelector((state) => state.user.id)
 
   const sliderData = [
     { image: route.params.item.image || "/" },
@@ -90,8 +93,18 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
     opacity: opacity.value,
   }));
 
+  const handleAddFavorite = (id: number) => {
+    firestore()
+    .collection('users')
+    .doc(userId)
+    .update({
+      favorites: firestore.FieldValue.arrayUnion(id),
+    })
+    .catch((err) => console.log("Ощибка при добавлений в избранное" , err))
+  }
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
       <TouchableOpacity style={{ marginLeft: 16, marginTop: 30 }} onPress={() => navigation.goBack()}>
         <GoBackIcon />
@@ -115,7 +128,7 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
           set.
         </Text>
         <View style={styles.add}>
-          <TouchableOpacity style={styles.favourite}>
+          <TouchableOpacity onPress={() => handleAddFavorite(route.params.item.id)}  style={styles.favourite}>
             <Text
               style={{
                 fontFamily: "Roboto-Regular",
@@ -145,13 +158,15 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
           </Animated.View>
         )}
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
+const width = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   container: { marginTop: 30 },
-  wrapper: { marginLeft: 24, marginTop: 30, width: 400 },
+  wrapper: { marginLeft: 24, marginTop: 30, width: width-50 },
   title: { marginLeft: 4, fontSize: 24, fontFamily: "Roboto-Medium", fontWeight: "bold" },
   price: { marginTop: 16, fontSize: 19, fontFamily: "Roboto-Medium", fontWeight: "bold" },
   about: { marginLeft: 4, marginTop: 16, fontFamily: "Roboto-Light", fontSize: 20 },

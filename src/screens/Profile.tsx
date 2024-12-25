@@ -4,11 +4,13 @@ import Orders from '../../assets/icons/Orders'
 import Pass from '../../assets/icons/Pass'
 import Events from '../../assets/icons/Events'
 import Settings from '../../assets/icons/Settings'
-import { useAppSelector } from '../../hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks'
+import { removeUSer } from '../slices/userSlice'
 
 export const Profile = () => {
 
   const userName = useAppSelector((state) => state.user.email)
+  const dispatch = useAppDispatch()
 
   return (
     <SafeAreaView style={styles.container} >
@@ -28,7 +30,7 @@ export const Profile = () => {
             <Orders style={styles.icon} />
             <Text>Orders</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{width: 100, height: 46, borderRightWidth: 2, borderRightColor: "#BABABA", justifyContent: 'center', alignItems: 'center'}} >
+          <TouchableOpacity onPress={() => dispatch(removeUSer())} style={{width: 100, height: 46, borderRightWidth: 2, borderRightColor: "#BABABA", justifyContent: 'center', alignItems: 'center'}} >
             <Pass style={styles.icon}  />
             <Text>Pass</Text>
           </TouchableOpacity>

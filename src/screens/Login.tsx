@@ -38,7 +38,6 @@ export const Login = ({navigation}: {navigation: any}) => {
         id: user.uid,
         token: ''
       }))
-      navigation.navigate("Home")
     })
     .catch((err) => {
       console.log(err)

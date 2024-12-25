@@ -14,11 +14,6 @@ import SearchContainer from '../components/SearchContainer'
 
 export const Shop = () => {
 
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, []);
 
   const [modalWin, setModalWin] = useState(false)
   const items: Idata[] = useAppSelector((state) => state.data.items)

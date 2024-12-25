@@ -46,7 +46,9 @@ const styles = StyleSheet.create({
 
   image: {
     width: 130,
-    height: 130
+    height: 130,
+    marginLeft: 10,
+    borderRadius: 15
   },
 
   title: {

@@ -7,6 +7,7 @@ import { useForm, Controller } from 'react-hook-form'
 import auth from '@react-native-firebase/auth';
 import { useAppDispatch } from '../../hooks/reduxHooks'
 import { setUser } from '../slices/userSlice'
+import firestore from '@react-native-firebase/firestore';
 
 type FormData = {
   Email: string;
@@ -27,22 +28,42 @@ export const Register = ({navigation}: {navigation: any}) => {
   });
 
   const regist = async (data: FormData) => {
+    try {
+      const { Email, Password } = data;
+  
+      const res = await auth().createUserWithEmailAndPassword(Email, Password);
+      const user = res.user;
+  
+      console.log('Пользователь создан:', user.uid);
+  
+      await firestore()
+        .collection('users')
+        .doc(user.uid)
+        .set({
+          email: user.email,
+          favorites: [],
+        })
+        .catch((err) => {
+          console.error('Ошибка при записи в Firestore:', err);
+        });
+  
+      dispatch(
+        setUser({
+          email: user.email || '',
+          id: user.uid,
+          token: '',
+        }),
+      );
+  
+      console.log('Регистрация завершена. Навигация на Home.');
+    } catch (err) {
+      console.error('Ошибка при регистрации:', err);
+      // Дополнительная логика обработки ошибок
+    }
+  };
+  
 
-    const {Email, Password} = data
 
-    auth().createUserWithEmailAndPassword(Email, Password).then((res) => {
-      const user = res.user
-      dispatch(setUser({
-        email: user.email || '',
-        id: user.uid,
-        token: ''
-      }))
-      navigation.navigate("Home")
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
 
 
   return (

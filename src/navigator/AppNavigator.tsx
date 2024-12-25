@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { loadUserFromStorage } from '../slices/userSlice';
 import { Loader } from '../components/Loader';
 import ProductPage from '../screens/ProductPage';
-import { Idata } from '../slices/dataSlice';
+import { fetchData, Idata } from '../slices/dataSlice';
 
 
 export type MainParamList = {
@@ -30,6 +30,11 @@ const AppNavigator = () => {
   
 
   const dispatch = useAppDispatch()
+
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, []);
 
 
   useEffect(() => {
