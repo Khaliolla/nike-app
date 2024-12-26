@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, TouchableOpacity, Dimensions, ActivityIndicator } from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import { MainParamList } from "../navigator/AppNavigator";
 import { Carousel } from "react-native-flatlist-carousel";
@@ -16,6 +16,7 @@ import FavoritIcon from "../../assets/tabIcons/FavoritIcon";
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from "@react-native-firebase/firestore";
 import { ScrollView } from "react-native-gesture-handler";
+import { Loader } from "../components/Loader";
 
 type ProductScreenRouteProp = RouteProp<MainParamList, "Product">;
 
@@ -37,6 +38,8 @@ const renderItem = ({ item }: { item: Iitem }) => (
 const ProductPage: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id)
+
+  const [isLoading, setIsLoading] = useState(true)
 
   const sliderData = [
     { image: route.params.item.image || "/" },
@@ -94,13 +97,26 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
   }));
 
   const handleAddFavorite = (id: number) => {
-    firestore()
-    .collection('users')
-    .doc(userId)
-    .update({
-      favorites: firestore.FieldValue.arrayUnion(id),
-    })
-    .catch((err) => console.log("Ощибка при добавлений в избранное" , err))
+
+    try {
+      setIsLoading(false)
+
+      firestore()
+      .collection('users')
+      .doc(userId)
+      .update({
+        favorites: firestore.FieldValue.arrayUnion(id),
+      })
+    }
+    catch (err) {
+      console.log(err)
+    }
+    finally {
+      setTimeout(() => {
+        setIsLoading(true);
+        // Здесь можно выполнить любые действия после завершения загрузки
+      }, 400); 
+    }
   }
 
   return (
@@ -129,7 +145,8 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
         </Text>
         <View style={styles.add}>
           <TouchableOpacity onPress={() => handleAddFavorite(route.params.item.id)}  style={styles.favourite}>
-            <Text
+            {isLoading ? (
+              <Text
               style={{
                 fontFamily: "Roboto-Regular",
                 fontWeight: "bold",
@@ -142,6 +159,10 @@ const ProductPage: React.FC<Props> = ({ route, navigation }) => {
                 <FavoritIcon color={"#000"} />
               </View>
             </Text>
+            ): (
+              <Loader />
+            ) }
+            
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={startAnimation}>
             <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: "#fff" }}>

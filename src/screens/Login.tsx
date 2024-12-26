@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, TextInput, TouchableOpacity, View, StatusBar } from 'react-native'
 import Logo from '../../assets/icons/Logo'
 import { StyleSheet } from 'react-native'
@@ -8,6 +8,8 @@ import { useForm, Controller } from "react-hook-form";
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useAppDispatch } from '../../hooks/reduxHooks'
 import { setUser } from '../slices/userSlice'
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 
 type FormData = {
   Email: string;
@@ -18,6 +20,12 @@ type FormData = {
 export const Login = ({navigation}: {navigation: any}) => {
 
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '1001292765069-fg5u5oe9u4covqi387mbo86peturjnjs.apps.googleusercontent.com',
+    })
+  }, [])
 
   const {
     handleSubmit,
@@ -43,6 +51,35 @@ export const Login = ({navigation}: {navigation: any}) => {
       console.log(err)
     })
   }
+
+async function onGoogleButtonPress() {
+  try {
+    // Проверяем, доступен ли Google Play Services
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+    // Получаем данные пользователя
+    const signInResult = await GoogleSignin.signIn();
+
+    // Извлекаем idToken из результата
+    const idToken = signInResult.data?.idToken;
+    const user = signInResult.data?.user;
+    
+    if (!idToken) {
+      throw new Error('No ID token found');
+    }
+
+    // Создаем учетные данные для Firebase
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Выполняем вход в Firebase
+    return await auth().signInWithCredential(googleCredential);
+
+  } catch (error) {
+    console.error('Google Sign-In Error:', error);
+    throw error;
+  }
+}
+
   
 
   return (
@@ -98,7 +135,7 @@ export const Login = ({navigation}: {navigation: any}) => {
 
         <Or style={styles.or} />
 
-        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 80}} >
+        <TouchableOpacity onPress={onGoogleButtonPress} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 80}} >
           <Google />
           <Text style={{fontFamily: 'Roboto-Regular', fontSize: 19, marginLeft: 5}} >Log in with Google</Text>
         </TouchableOpacity>

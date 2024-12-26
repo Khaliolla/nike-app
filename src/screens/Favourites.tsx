@@ -1,5 +1,5 @@
 import defaultExport from '@react-native-firebase/auth'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import firestore from '@react-native-firebase/firestore';
@@ -7,6 +7,8 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import FavouritesList from '../components/FavouritesList';
 import { Loader } from '../components/Loader';
 import { Idata } from '../slices/dataSlice';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import CuctomBottomSheetFavourite from '../components/CuctomBottomSheetFavourite';
 
 
 export const Favourites = () => {
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
   wrap: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     gap: 2
   }
 })

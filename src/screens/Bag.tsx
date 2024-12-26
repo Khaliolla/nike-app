@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks/reduxHooks'
 import { useState } from 'react';
 import EmptyBag from '../components/EmptyBag';
 import { BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet';
-import CustomBottomSheet from '../components/CustomBottomSheet';
+import CustomBottomSheet from '../components/CustomBottomSheetBag';
  
 export const Bag = () => {
 

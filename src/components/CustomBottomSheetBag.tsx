@@ -9,7 +9,7 @@ import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 
 export type Ref = BottomSheetModal
 
-const CustomBottomSheet = forwardRef<Ref>((props, ref) => {
+const CustomBottomSheetBag = forwardRef<Ref>((props, ref) => {
 const data = useAppSelector((state) => state.bag.items)
 const snapPoint = useMemo(() => ['40%', '50%'], [] ) 
 const { dismiss } = useBottomSheetModal()
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CustomBottomSheet
+export default CustomBottomSheetBag
