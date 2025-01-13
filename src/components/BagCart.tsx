@@ -47,15 +47,9 @@ const BagCart = ({ item }: { item: Idata }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textRow}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.price}>{item.price} tg</Text>
-      </View>
+      <View style={styles.textRow}><Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.price}>{item.price}tg</Text></View>
       <View style={styles.image}>
-        {/* <Image
-          style={{ width: 200, height: 200, borderRadius: 15 }}
-          source={{ uri: item.image }}
-        />  */}
         <View style={{width:200, height: 200, backgroundColor: '#f6f6f6', borderRadius: 15}} >
           <Carousel
             height={200}
@@ -89,9 +83,8 @@ const BagCart = ({ item }: { item: Idata }) => {
         />
       </View>
         <View style={styles.incr} >
-          <TouchableOpacity onPress={() => dispatch(decrementItems(item.id))} > <MinusIcon /> </TouchableOpacity> 
-            <Text style={{fontFamily: "Roboto-Medium", fontSize: 19 }} >{item.quantity}</Text>
-          <TouchableOpacity onPress={() => dispatch(incrementItems(item.id))} >  <PlusIcon /> </TouchableOpacity> 
+          <TouchableOpacity onPress={() => dispatch(decrementItems(item.id))} ><MinusIcon /></TouchableOpacity> 
+            <Text style={{fontFamily: "Roboto-Medium", fontSize: 19 }} >{item.quantity}</Text><TouchableOpacity onPress={() => dispatch(incrementItems(item.id))} ><PlusIcon /></TouchableOpacity> 
         </View>
         </View>
       </View>

@@ -21,8 +21,7 @@ const FavouritesList = ({item, index}: {item: Idata, index: number}) => {
         </View>
         <View style={{marginBottom:20}} >
             <Text style={styles.price} >{item.price} Tg</Text>
-        </View>
-    </TouchableOpacity>
+        </View></TouchableOpacity>
     <CuctomBottomSheetFavourite
         ref={bottomSheetRef}
         item={item}

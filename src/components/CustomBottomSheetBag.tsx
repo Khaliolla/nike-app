@@ -38,9 +38,8 @@ const renderItem = useCallback(
         >
           <BottomSheetView style={styles.container} >
             <Text style={styles.title} >Order Review</Text>
-
-             
-             <BottomSheetView style={styles.bottomFlat} >
+            
+            <BottomSheetView style={styles.bottomFlat} >
              <BottomSheetFlatList
              data={data}
              horizontal={true}
@@ -53,7 +52,7 @@ const renderItem = useCallback(
              
             <Text style={styles.totalPrice} >Purchase Summary: {data.reduce((acc, item) => {return acc += (item.price * item.quantity)},0 ) } tg</Text>
 
-            <TouchableOpacity style={styles.button} onPress={() => dismiss()} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Submit Payment</Text> </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => dismiss()} ><Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Submit Payment</Text></TouchableOpacity>
         
           </BottomSheetView>
     </BottomSheetModal>

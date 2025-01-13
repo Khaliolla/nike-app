@@ -64,19 +64,14 @@ export const CuctomBottomSheetFavourite = forwardRef<BottomSheetModal, BottomShe
                  <Text style={styles.totalPrice} >{item.price} tg</Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.removeButton} onPress={() => removeFavouriteItem(userId, item.id)} >
-                <Text style={{
+            <TouchableOpacity style={styles.removeButton} onPress={() => removeFavouriteItem(userId, item.id)} ><Text style={{
                     fontFamily: "Roboto-Regular",
                     fontWeight: "bold",
                     fontSize: 20,
                     color: "#000",
                 }}
-                >
-                Remove
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleBottomButton} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Add to Bag</Text> </TouchableOpacity>
-        
+                >Remove</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={handleBottomButton} ><Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Add to Bag</Text></TouchableOpacity>
           </BottomSheetView>
     </BottomSheetModal>
   )

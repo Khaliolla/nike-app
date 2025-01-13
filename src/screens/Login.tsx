@@ -131,7 +131,7 @@ async function onGoogleButtonPress() {
         name="Password"
       />
         
-        <TouchableOpacity style={styles.button} onPress={handleSubmit(signIn)} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Log In</Text> </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit(signIn)} ><Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Log In</Text></TouchableOpacity>
 
         <Or style={styles.or} />
 

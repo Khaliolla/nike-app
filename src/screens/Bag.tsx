@@ -29,11 +29,9 @@ export const Bag = () => {
         <Text style={styles.price} >
           {bagItems.reduce((acc, item) => {return acc += (item.price * item.quantity)},0 ) } tg 
         </Text>
-        <TouchableOpacity onPress={handlePresentModal} disabled={!bagItems.length} style={styles.button}> 
-          <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >
+        <TouchableOpacity onPress={handlePresentModal} disabled={!bagItems.length} style={styles.button}><Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >
             Checkout
-          </Text> 
-        </TouchableOpacity>
+          </Text></TouchableOpacity>
        </View>
        <CustomBottomSheet 
        ref={bottomSheetRef}

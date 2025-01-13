@@ -114,21 +114,14 @@ export const Register = ({navigation}: {navigation: any}) => {
         name="Password"
       />
         
-        <TouchableOpacity style={styles.button} onPress={handleSubmit(regist)} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Create Account</Text> </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit(regist)} ><Text style={{ fontFamily: "Roboto-Regular", fontSize: 20, color: '#fff' }} >Create Account</Text></TouchableOpacity>
 
         <LineIcon style={styles.line} />
 
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 100}} >
-          <Text style={styles.create} >Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.goBack()} >
-              <Text style={{color:'#0000EE',fontFamily: "Roboto-Regular",  fontSize: 18 }} >
-                Log In
-              </Text>
-          </TouchableOpacity>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 100}} ><Text style={styles.create} >Already have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{color:'#0000EE',fontFamily: "Roboto-Regular",  fontSize: 18 }} >Log In</Text></TouchableOpacity>
         </View>
-        
       </View>
-
     </View>
   )
 }

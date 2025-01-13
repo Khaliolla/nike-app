@@ -7,8 +7,6 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import FavouritesList from '../components/FavouritesList';
 import { Loader } from '../components/Loader';
 import { Idata } from '../slices/dataSlice';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import CuctomBottomSheetFavourite from '../components/CuctomBottomSheetFavourite';
 
 
 export const Favourites = () => {

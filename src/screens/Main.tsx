@@ -16,7 +16,7 @@ export const Main = ({navigation}: {navigation: any} ) => {
             Thanks for becoming
             a Member!</Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Login') } style={styles.button} > <Text style={{ fontFamily: "Roboto-Regular", fontSize: 20 }} >Join Us</Text> </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login') } style={styles.button}><Text style={{ fontFamily: "Roboto-Regular",fontSize: 20 }}>Join Us</Text></TouchableOpacity>
      </View>
     </View>
   )
