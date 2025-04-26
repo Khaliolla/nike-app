@@ -3,12 +3,14 @@ import { Idata } from "./dataSlice";
 
 interface Iitems {
     items: Idata[],
-    value: string
+    value: string,
+    biometric: boolean
 }
 
 const initialState: Iitems = {
     items: [],
     value: "",
+    biometric: false
 }
 
 const bagSlice = createSlice({
@@ -53,11 +55,14 @@ const bagSlice = createSlice({
         removeItems(state, action) {
             state.items = state.items.filter((item) => item.id !== action.payload)
         },
+        toogle(state){
+            state.biometric = !state.biometric
+        }
 
     },
 })
 
 
 
-export const { setItems, decrementItems, incrementItems, removeItems} = bagSlice.actions
+export const { setItems, decrementItems, incrementItems, removeItems, toogle} = bagSlice.actions
 export default bagSlice.reducer
